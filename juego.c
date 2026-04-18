@@ -29,23 +29,25 @@ bool es_movimiento_valido(char input){
 
 int main() {
 
-srand((unsigned)time(NULL));
-bool juego_terminado = false;
-char movimiento;
-juego_t juego;
-inicializar_juego(&juego);
+    srand((unsigned)time(NULL));
+    bool juego_terminado = false;
+
+    char movimiento;
+    juego_t juego;
+    inicializar_juego(&juego);
 
 
-while(!juego_terminado){
-    bool validar_tecla = false;
-    mostrar_juego(juego);
+    while(!juego_terminado){
+        
+        mostrar_juego(juego);
+        bool validar_tecla = false;
     
-    while(!validar_tecla){
+        while(!validar_tecla){
         printf("Ingrese un movimiento (W/A/S/D para moverse, H para hechizo revelador, L para antorcha mágica): ");
         scanf(" %c", &movimiento);
-        if(es_movimiento_valido(movimiento)){    
+            if(es_movimiento_valido(movimiento)){    
             validar_tecla = true;
-        }
+            }
     }
     realizar_jugada(&juego, movimiento);
 

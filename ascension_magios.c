@@ -24,7 +24,7 @@ const char HECHIZO_REVELADOR = 'h';
 const char ANTORCHA_MAGICA = 'l';
 
 static void pos_pergamino(juego_t *juego){
-//Busco un número aleatorio dentro del camino para colocar el pergamino.
+    //Busco un número aleatorio dentro del camino para colocar el pergamino.
     int tope_camino = juego->niveles[juego->nivel_actual - 1].tope_camino;
     int n_random = (rand() % tope_camino - 2) + 1;
     //Resto 2 para evitar que caiga en la posición del altar y sumo uno para evitar que caiga en la posición de inicio.
@@ -51,24 +51,24 @@ static void pos_herramienta_totem(juego_t *juego, int numero_nivel){
     }
 }
 
+
 static bool no_es_camino(juego_t *juego, int posicion_fil, int posicion_col){
     int tope = juego->niveles[juego->nivel_actual-1].tope_camino;
 
     bool no_es_camino = false;
     for(int i = 0;i<tope;i++){
-        if(posicion_fil == juego->niveles[juego->nivel_actual - 1].camino[i].fil && posicion_col == juego->niveles[juego->nivel_actual - 1].camino[i].col){
+        if(posicion_fil != juego->niveles[juego->nivel_actual - 1].camino[i].fil && posicion_col != juego->niveles[juego->nivel_actual - 1].camino[i].col){
             no_es_camino = true;
         }
     }
     return no_es_camino;
 }
-
 static bool no_es_pared(juego_t *juego, int posicion_fil, int posicion_col){
     int tope = juego->niveles[juego->nivel_actual-1].tope_paredes;
 
     bool no_es_pared = false;
     for(int i = 0;i<tope;i++){
-        if(posicion_fil == juego->niveles[juego->nivel_actual - 1].paredes[i].fil && posicion_col == juego->niveles[juego->nivel_actual - 1].paredes[i].col){
+        if(posicion_fil != juego->niveles[juego->nivel_actual - 1].paredes[i].fil && posicion_col != juego->niveles[juego->nivel_actual - 1].paredes[i].col){
             no_es_pared = true;
         }
     }
@@ -79,7 +79,7 @@ static bool no_es_totem(juego_t *juego, int posicion_fil, int posicion_col){
 
     bool no_es_totem = false;
     for(int i = 0;i<tope;i++){
-        if(posicion_fil == juego->niveles[juego->nivel_actual - 1].herramientas[i].posicion.fil && posicion_col == juego->niveles[juego->nivel_actual - 1].herramientas[i].posicion.col){
+        if(posicion_fil != juego->niveles[juego->nivel_actual - 1].herramientas[i].posicion.fil && posicion_col != juego->niveles[juego->nivel_actual - 1].herramientas[i].posicion.col){
             no_es_totem = true;
         }
     }
@@ -90,14 +90,13 @@ static bool no_es_piedra(juego_t *juego, int posicion_fil, int posicion_col){
 
     bool no_es_piedra = false;
     for(int i = 0;i<tope;i++){
-        if(posicion_fil == juego->niveles[juego->nivel_actual - 1].obstaculos[i].posicion.fil && posicion_col == juego->niveles[juego->nivel_actual - 1].obstaculos[i].posicion.col){
+        if(posicion_fil != juego->niveles[juego->nivel_actual - 1].obstaculos[i].posicion.fil && posicion_col != juego->niveles[juego->nivel_actual - 1].obstaculos[i].posicion.col){
             no_es_piedra = true;
         }
     }
     return no_es_piedra;
     
 }
-
 static bool no_es_afuera(juego_t *juego, int posicion_fil, int posicion_col){
     if(posicion_fil >= 0 && posicion_fil < MAX_FILAS && posicion_col >= 0 && posicion_col < MAX_COLUMNAS){
         return true;
@@ -139,7 +138,9 @@ static void inicializar_obstaculo_catapulta(juego_t *juego, int numero_nivel){
     //Inicializo los obstáculos y las herramientas del nivel.
 
     inicializar_obstaculo_piedra(juego, nivel);
+    
     inicializar_obstaculo_catapulta(juego, nivel);
+    
     pos_herramienta_totem(juego, nivel);
 
     pos_pergamino(juego);
@@ -182,6 +183,7 @@ void inicializar_juego(juego_t *juego){
 void cambiar_nivel(juego_t* juego){
     juego->nivel_actual++;
 
+
     juego->homero.posicion.col = 0;
     juego->homero.posicion.fil = 0;
     
@@ -190,6 +192,7 @@ void cambiar_nivel(juego_t* juego){
     juego->homero.antorcha_encendida = false;
     
     juego->camino_visible = true;
+
 }
 
 
@@ -218,7 +221,44 @@ static bool posicion_valida(juego_t* juego, coordenada_t pos) {
 
 }
 
+static bool no_es_runa_ni_altar(juego_t* juego, int posicion_fil, int posicion_col){
 
+    bool no_es_runa_ni_altar = false;
+    if(posicion_fil != juego->niveles[juego->nivel_actual - 1].camino[0].fil && posicion_col != juego->niveles[juego->nivel_actual - 1].camino[0].col && posicion_fil != juego->niveles[juego->nivel_actual - 1].camino[juego->niveles[juego->nivel_actual - 1].tope_camino - 1].fil && posicion_col != juego->niveles[juego->nivel_actual - 1].camino[juego->niveles[juego->nivel_actual - 1].tope_camino - 1].col){
+        no_es_runa_ni_altar = true;
+    }
+    return no_es_runa_ni_altar;
+
+}
+
+
+static void ejecuccion_catapulta(juego_t* juego){
+    
+    bool encontro_posicion = false;
+    bool camino_eliminado = false;
+    coordenada_t impacto;
+
+    while(!encontro_posicion){
+        impacto.fil = rand() % MAX_FILAS;
+        impacto.col = rand() % MAX_COLUMNAS;
+
+            if(no_es_pared(juego, impacto.fil, impacto.col) == true && no_es_afuera(juego, impacto.fil, impacto.col) == true && no_es_runa_ni_altar(juego, impacto.fil, impacto.col) == true &&  impacto.col != juego->homero.posicion.col && impacto.fil != juego->homero.posicion.fil){
+                encontro_posicion = true;
+            }
+        }
+    while(!camino_eliminado){      
+        for(int i = 0; i < juego->niveles[juego->nivel_actual - 1].tope_camino; i++){
+            if(impacto.col == juego->niveles[juego->nivel_actual - 1].camino[i].col && impacto.fil == juego->niveles[juego->nivel_actual - 1].camino[i].fil){
+                //Eliino la posición del camino donde impactó la catapulta.
+                for (int j = i; j < juego->niveles[juego->nivel_actual - 1].tope_camino - 1; j++) {
+                    juego->niveles[juego->nivel_actual - 1].camino[j] = juego->niveles[juego->nivel_actual - 1].camino[j + 1];
+                }
+                juego->niveles[juego->nivel_actual - 1].tope_camino--;
+                camino_eliminado = true;
+            }
+        }
+    }
+}
 
 /* Pre condiciones: El juego debe estar inicializado previamente con `inicializar_juego` y la acción
  * debe ser válida.
@@ -226,13 +266,14 @@ static bool posicion_valida(juego_t* juego, coordenada_t pos) {
  */
 void realizar_jugada(juego_t *juego, char movimiento){
 
+
 if (movimiento == ARRIBA){
+
     //Aplico filtros
     if(!detectar_pared(juego,juego->homero.posicion) && posicion_valida(juego, juego->homero.posicion)){
         juego->homero.posicion.fil--;
     }
 
-    
 }
 else if (movimiento == ABAJO){
     //Aplico filtros
@@ -264,16 +305,16 @@ else if (movimiento == ANTORCHA_MAGICA){
 
 
 if ((juego->homero.posicion.fil == juego->niveles[juego->nivel_actual - 1].camino[0].fil && juego->homero.posicion.col == juego->niveles[juego->nivel_actual - 1].camino[0].col) || movimiento == HECHIZO_REVELADOR){
-
+    ejecuccion_catapulta(juego);
 }
 
 if(juego->homero.posicion.fil == juego->niveles[juego->nivel_actual - 1].camino[0].fil && juego->homero.posicion.col == juego->niveles[juego->nivel_actual - 1].camino[0].col){
     juego->camino_visible = true;
-} else juego->camino_visible = false;
+}
 
 if(juego->homero.posicion.fil == juego->niveles[juego->nivel_actual - 1].pergamino.fil && juego->homero.posicion.col == juego->niveles[juego->nivel_actual - 1].pergamino.col){
     juego->homero.recolecto_pergamino = true;
-} else juego->homero.recolecto_pergamino = false;
+}
 
 
 
