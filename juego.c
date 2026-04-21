@@ -31,17 +31,20 @@ int main() {
 
     srand((unsigned)time(NULL));
     bool juego_terminado = false;
-
-    char movimiento;
     juego_t juego;
-    inicializar_juego(&juego);
-
-
-    while(!juego_terminado){
-        
-        mostrar_juego(juego);
-        bool validar_tecla = false;
     
+    printf("Prueba\n");
+    printf("Prueba2\n");
+    inicializar_juego(&juego);
+    printf("Prueba3\n");
+    
+    
+    while(!juego_terminado){
+        system("clear");
+        mostrar_juego(juego);
+        
+        char movimiento;
+        bool validar_tecla = false;
         while(!validar_tecla){
         printf("Ingrese un movimiento (W/A/S/D para moverse, H para hechizo revelador, L para antorcha mágica): ");
         scanf(" %c", &movimiento);
@@ -69,7 +72,7 @@ int main() {
     
     
 
-}
+    }
    
     return 0;
 }
