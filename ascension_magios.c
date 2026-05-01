@@ -45,7 +45,7 @@ void pos_pergamino(juego_t *juego){
 
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son CAMINO
 */
 bool es_camino(juego_t *juego, int posicion_fil, int posicion_col){
@@ -61,7 +61,7 @@ bool es_camino(juego_t *juego, int posicion_fil, int posicion_col){
     return es_camino;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son PARED
 */
 bool es_pared(juego_t *juego, int posicion_fil, int posicion_col){
@@ -76,7 +76,7 @@ bool es_pared(juego_t *juego, int posicion_fil, int posicion_col){
     return pared;
 }    
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son TOTEM
 */
 bool es_totem(juego_t *juego, int posicion_fil, int posicion_col){
@@ -91,7 +91,7 @@ bool es_totem(juego_t *juego, int posicion_fil, int posicion_col){
     return totem;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son PIEDRA DEL CASTIGO
 */  
 bool es_piedra(juego_t *juego, int posicion_fil, int posicion_col){
@@ -107,8 +107,8 @@ bool es_piedra(juego_t *juego, int posicion_fil, int posicion_col){
     
 } 
 /*
-    Pre: Recibe valores de coordenadas
-    Post: Devuelve true si las coordenadas estan dentro del campo permitido [20][30]
+    Pre: Recibe valores de coordenadas (fila,columna)
+    Post: Devuelve true si las coordenadas estan dentro del campo permitido [MAX_FILAS][MAX_COLUMNAS]
 */   
 bool no_es_afuera(juego_t *juego, int posicion_fil, int posicion_col){
     if(posicion_fil >= 0 && posicion_fil < MAX_FILAS && posicion_col >= 0 && posicion_col < MAX_COLUMNAS){
@@ -117,7 +117,7 @@ bool no_es_afuera(juego_t *juego, int posicion_fil, int posicion_col){
     return false;
 } 
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son PERGAMINO
 */   
 bool es_pergamino(juego_t *juego, int posicion_fil, int posicion_col){
@@ -131,7 +131,7 @@ bool es_pergamino(juego_t *juego, int posicion_fil, int posicion_col){
     return es_pergamino;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son RUNA
 */
 bool es_runa(juego_t *juego, int posicion_fil, int posicion_col){
@@ -142,7 +142,7 @@ bool es_runa(juego_t *juego, int posicion_fil, int posicion_col){
     return es_runa;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son ALTAR
 */
 bool es_altar(juego_t *juego, int posicion_fil, int posicion_col){
@@ -154,7 +154,7 @@ bool es_altar(juego_t *juego, int posicion_fil, int posicion_col){
     return es_altar;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son PERSONAJE
 */
 bool es_personaje(juego_t *juego, int posicion_fil, int posicion_col){
@@ -168,7 +168,7 @@ bool es_personaje(juego_t *juego, int posicion_fil, int posicion_col){
 
 
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son CATAPULTA
 */
 bool es_catapulta(juego_t *juego, int posicion_fil, int posicion_col){
@@ -182,7 +182,7 @@ bool es_catapulta(juego_t *juego, int posicion_fil, int posicion_col){
     return validado;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas son VACIO
 */
 bool es_vacio(juego_t *juego, int posicion_fil, int posicion_col){
@@ -193,7 +193,7 @@ bool es_vacio(juego_t *juego, int posicion_fil, int posicion_col){
     return es_vacio;
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Devuelve true si las coordenadas no son RUNA y ALTAR
 */
 bool no_es_runa_ni_altar(juego_t* juego, int posicion_fil, int posicion_col){
@@ -207,7 +207,7 @@ bool no_es_runa_ni_altar(juego_t* juego, int posicion_fil, int posicion_col){
 }
 
 /*
-    Pre: Recibo un nivel
+    Pre: Recibe un indice para determinar en que nivel se inicializa el PERGAMINO 
     Post: Inicializa el PERGAMINO
 */
 void inicializar_pergamino(juego_t *juego, int nivel){
@@ -220,7 +220,7 @@ void inicializar_pergamino(juego_t *juego, int nivel){
 
 
 /*
-    Pre: Recibo un nivel
+    Pre: Recibe un indice para determinar en que nivel se inicializa el TOTEM
     Post: Inicializo el TOTEM
 */
 void inicializar_herramienta_totem(juego_t *juego, int numero_nivel){
@@ -245,7 +245,7 @@ void inicializar_herramienta_totem(juego_t *juego, int numero_nivel){
 }
 
 /*
-    Pre: Recibo un nivel
+    Pre: Recibe un indice para determinar en que nivel se inicializa la CATAPULTA
     Post: Inicializo la CATAPULTA
 */
 void inicializar_obstaculo_catapulta(juego_t *juego, int numero_nivel){
@@ -267,7 +267,7 @@ void inicializar_obstaculo_catapulta(juego_t *juego, int numero_nivel){
 }
 
 /*
-    Pre: Recibo un nivel
+    Pre: Recibe un indice para determinar en que nivel se inicializa la ROCA
     Post: Inicializo la PIEDRA DEL CASTIGO
 */
 void inicializar_obstaculo_piedra(juego_t *juego, int numero_nivel){
@@ -293,7 +293,7 @@ void inicializar_obstaculo_piedra(juego_t *juego, int numero_nivel){
 
 
 /*
-    Pre: Recibo un nivel
+    Pre: Recibe un indice para determinar en que nivel se inicializarán los datos del juego
     Post: Carga los datos del nivel asignado
 */
 void cargar_datos_nivel(juego_t* juego, int numero_nivel) {
@@ -367,9 +367,9 @@ void cambiar_nivel(juego_t* juego){
 
 /*
     Pre: -
-    Post: Asigna un valor permitido a una variable impacto que es donde impacta la bola de fuego
+    Post: Asigna un valor permitido a una variable impacto que es donde impacta la bola de fuego, proveniente de la catapulta
 */
-void ejecuccion_catapulta(juego_t* juego){
+void ejecucion_catapulta(juego_t* juego){
     int tope = juego->niveles[juego->nivel_actual-1].tope_camino;
     bool encontro_posicion = false;
     coordenada_t impacto;
@@ -401,7 +401,7 @@ void ejecuccion_catapulta(juego_t* juego){
         }
 }
 /*
-    Pre: Recibe valores de coordenadas
+    Pre: Recibe valores de coordenadas (fila,columna)
     Post: Otorga una vida extra al personaje
 */
 void ejecucion_totem(juego_t *juego, int pos_fil, int pos_col){
@@ -424,7 +424,7 @@ void ejecucion_totem(juego_t *juego, int pos_fil, int pos_col){
     Pre: -
     Post: Cambia de posición al pergamino
 */
-void ejecuccion_piedra(juego_t *juego) {
+void ejecucion_piedra(juego_t *juego) {
     int nivel = juego->nivel_actual - 1;
     int tope = juego->niveles[nivel].tope_obstaculos;
     pos_pergamino(juego);
@@ -490,7 +490,7 @@ void realizar_jugada(juego_t *juego, char movimiento){
     //Catapulta
     if(es_runa(juego, juego->homero.posicion.fil, juego->homero.posicion.col) || movimiento == HECHIZO_REVELADOR){
         if(juego->homero.hechizos_reveladores > 0 || es_runa(juego, juego->homero.posicion.fil, juego->homero.posicion.col)){ 
-            ejecuccion_catapulta(juego);
+            ejecucion_catapulta(juego);
 
         }
     } 
@@ -507,7 +507,7 @@ void realizar_jugada(juego_t *juego, char movimiento){
     }
     //Piedra
     if(es_piedra(juego, juego->homero.posicion.fil, juego->homero.posicion.col)){
-        ejecuccion_piedra(juego);
+        ejecucion_piedra(juego);
     }
     //Totem
     if(es_totem(juego, juego->homero.posicion.fil, juego->homero.posicion.col)){
