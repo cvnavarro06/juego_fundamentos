@@ -435,21 +435,20 @@ void cambiar_nivel(juego_t* juego){
 void ejecucion_catapulta(juego_t* juego){
 
     int tope = juego->niveles[juego->nivel_actual-1].tope_camino;
-    int intentos = 0;
     bool encontro_posicion = false;
     coordenada_t impacto;
 
-    while(!encontro_posicion && intentos < 1000){
+    while(!encontro_posicion){
         
         numeros_aleatorios(&impacto);
 
         if(es_pergamino(*juego, impacto) == true){
             pos_pergamino(juego);
+            encontro_posicion = true;
         }        
         if(!es_pared(*juego, impacto) && !es_runa(*juego, impacto) && !es_altar(*juego, impacto) && !es_personaje(juego->homero, impacto)){
             encontro_posicion = true;
         }
-        intentos++;
     }
 
     for(int i = 0; i < tope; i++){
