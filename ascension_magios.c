@@ -442,10 +442,10 @@ void ejecucion_catapulta(juego_t* juego){
         
         numeros_aleatorios(&impacto);
 
-        if(es_pergamino(*juego, impacto) == true){
-            pos_pergamino(juego);
-            encontro_posicion = true;
-        }        
+        //if(es_pergamino(*juego, impacto)){
+        //    pos_pergamino(juego);
+        //    encontro_posicion = true;
+        //}        
         if(!es_pared(*juego, impacto) && !es_runa(*juego, impacto) && !es_altar(*juego, impacto) && !es_personaje(juego->homero, impacto)){
             encontro_posicion = true;
         }
